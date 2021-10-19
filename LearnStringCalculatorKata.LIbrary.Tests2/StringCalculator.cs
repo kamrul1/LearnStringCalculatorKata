@@ -17,6 +17,11 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
                 return 0;
             }
 
+            if (numbers.Contains(",\n"))
+            {
+                return 0;
+            }
+
             
 
             var numberArray = numbers.Split(DELIMITERS, StringSplitOptions.None);
