@@ -26,5 +26,17 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
 
             Assert.Equal(expectedResult, result);
         }
+
+        [Theory]
+        [InlineData("1\n2,3", 6)]
+        public void ShouldReturnSumTreatNewLineAsDelimiter(string inputNumbers, int expectedResult)
+        {
+            var sut = new StringCalculator();
+
+            var result = sut.Add(inputNumbers);
+
+            Assert.Equal(expectedResult, result);
+        }
+
     }
 }

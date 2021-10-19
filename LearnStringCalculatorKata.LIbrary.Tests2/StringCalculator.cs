@@ -8,6 +8,8 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
 {
     public class StringCalculator
     {
+        private string[] DELIMITERS = new string[] { ",", "\n" };
+
         public int Add(string numbers)
         {
             if(string.IsNullOrWhiteSpace(numbers))
@@ -15,7 +17,9 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
                 return 0;
             }
 
-            var numberArray = numbers.Split(",");
+            
+
+            var numberArray = numbers.Split(DELIMITERS, StringSplitOptions.None);
             var sum = 0;
             foreach (var number in numberArray)
             {
