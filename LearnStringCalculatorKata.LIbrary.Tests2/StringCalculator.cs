@@ -8,7 +8,7 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
 {
     public class StringCalculator
     {
-        private string[] DELIMITERS = new string[] { ",", "\n" };
+        private string[] DEFAULT_DELIMITERS = new string[] { ",", "\n" };
 
         public int Add(string numbers)
         {
@@ -22,16 +22,42 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
                 return 0;
             }
 
-            
+            var UseDelimiter = GetDelimiterFromHeadingOrDefault(numbers);
 
-            var numberArray = numbers.Split(DELIMITERS, StringSplitOptions.None);
+            var numberArray = numbers.Split(DEFAULT_DELIMITERS, StringSplitOptions.None);
             var sum = 0;
+            List<int> negatives = new();
             foreach (var number in numberArray)
             {
-                sum += Int32.Parse(number);
+                var value = Int32.Parse(number);
+                if (value < 0)
+                {
+                    negatives.Add(value);
+                }
+
+                sum = +value;
+            }
+
+            if (negatives.Count() > 0)
+            {
+                var negativeNumberString = string.Join(",", negatives);
+                throw new Exception($"negatives not allowed {negativeNumberString}");
             }
 
             return sum;
+        }
+
+        internal object GetDelimiterFromHeadingOrDefault(string inputNumbers)
+        {
+            if (inputNumbers.StartsWith("//"))
+            {
+                inputNumbers = inputNumbers.TrimStart('/');
+                return inputNumbers.Split('\n').FirstOrDefault();
+            }
+
+            return DEFAULT_DELIMITERS;
+
+
         }
     }
 }

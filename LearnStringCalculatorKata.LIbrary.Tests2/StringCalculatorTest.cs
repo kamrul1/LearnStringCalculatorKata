@@ -38,5 +38,32 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
             Assert.Equal(expectedResult, result);
         }
 
+        [Fact]
+        public void ShouldGetCustomDelimiterFromHeadingOrDefault()
+        {
+            var sut = new StringCalculator();
+
+            var inputNumbers = "//;\n1;2";
+
+            var result = sut.GetDelimiterFromHeadingOrDefault(inputNumbers);
+
+            Assert.Equal(";", result);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionForNegativeNumbers()
+        {
+            var sut = new StringCalculator();
+
+            var inputNumbers = "1,-2,4,-3";
+
+            Action action = () => sut.Add(inputNumbers);
+
+            var ex = Assert.Throws<Exception>(action);
+            Assert.Equal("negatives not allowed -2,-3", ex.Message);
+
+        }
+
+
     }
 }
