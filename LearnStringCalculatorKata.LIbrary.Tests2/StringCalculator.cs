@@ -10,7 +10,19 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
     {
         public int Add(string numbers)
         {
-            return 0;
+            if(string.IsNullOrWhiteSpace(numbers))
+            {
+                return 0;
+            }
+
+            var numberArray = numbers.Split(",");
+            var sum = 0;
+            foreach (var number in numberArray)
+            {
+                sum += Int32.Parse(number);
+            }
+
+            return sum;
         }
     }
 }
