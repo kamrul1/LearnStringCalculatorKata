@@ -45,9 +45,9 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
 
             var inputNumbers = "//;\n1;2";
 
-            var result = sut.GetDelimiterFromHeadingOrDefault(inputNumbers);
+            var result = sut.GetDelimitersFromHeadingOrDefault(inputNumbers);
 
-            Assert.Equal(";", result);
+            Assert.Equal(";", result[0]);
         }
 
         [Fact]

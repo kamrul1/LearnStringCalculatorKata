@@ -12,21 +12,36 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
 
         public int Add(string numbers)
         {
-            if(string.IsNullOrWhiteSpace(numbers))
+            if (NotValid(numbers))
             {
                 return 0;
             }
 
-            if (numbers.Contains(",\n"))
+
+
+            var UseDelimiter = GetDelimitersFromHeadingOrDefault(numbers);
+
+            var numberArray = numbers.Split(UseDelimiter, StringSplitOptions.None);
+
+            var sum = CalculateSumOfNumbers(numberArray);
+
+            return sum;
+        }
+
+        public void NegativesThrowException(List<int> negatives)
+        {
+            if (negatives.Count() > 0)
             {
-                return 0;
+                var negativeNumberString = string.Join(",", negatives);
+                throw new Exception($"negatives not allowed {negativeNumberString}");
             }
+        }
 
-            var UseDelimiter = GetDelimiterFromHeadingOrDefault(numbers);
-
-            var numberArray = numbers.Split(DEFAULT_DELIMITERS, StringSplitOptions.None);
-            var sum = 0;
+        public int CalculateSumOfNumbers(string[] numberArray)
+        {
+            int sum = 0;
             List<int> negatives = new();
+
             foreach (var number in numberArray)
             {
                 var value = Int32.Parse(number);
@@ -38,21 +53,32 @@ namespace LearnStringCalculatorKata.LIbrary.Tests2
                 sum = +value;
             }
 
-            if (negatives.Count() > 0)
-            {
-                var negativeNumberString = string.Join(",", negatives);
-                throw new Exception($"negatives not allowed {negativeNumberString}");
-            }
+            NegativesThrowException(negatives);
 
             return sum;
         }
 
-        internal object GetDelimiterFromHeadingOrDefault(string inputNumbers)
+        public bool NotValid(string numbers)
+        {
+            if (string.IsNullOrWhiteSpace(numbers))
+            {
+                return false;
+            }
+
+            if (numbers.Contains(",\n"))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public string[] GetDelimitersFromHeadingOrDefault(string inputNumbers)
         {
             if (inputNumbers.StartsWith("//"))
             {
                 inputNumbers = inputNumbers.TrimStart('/');
-                return inputNumbers.Split('\n').FirstOrDefault();
+                return new string[] { inputNumbers.Split('\n').FirstOrDefault() };
             }
 
             return DEFAULT_DELIMITERS;

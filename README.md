@@ -18,7 +18,7 @@ Aim is to do this exercise multiple time
 
 Each on of these a new attempt
 - LearnStringCalculatorKata.LIbrary.Tests1
--  
+- LearnStringCalculatorKata.LIbrary.Tests2
 
 A very good solutions by Ardalias on youtube is available here: 
 https://www.youtube.com/watch?v=H96nnZuQO00
